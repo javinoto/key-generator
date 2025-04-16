@@ -58,24 +58,23 @@ def format_key(key_bytes: bytes) -> str:
     return key_str.replace("\n", "\\n")
 
 
-def extract_public_key_body(formatted_pem: str) -> str:
+def extract_base64_key(public_key_bytes: bytes) -> str:
     """
-    Extract the base64 encoded body from a PEM-formatted public key string.
-    This removes the header (-----BEGIN PUBLIC KEY-----), footer (-----END PUBLIC KEY-----)
-    and any newline characters.
+    Extract the Base64 encoded part of the public key from a PEM-formatted key.
 
-    :param formatted_pem: The public key in PEM format with literal '\\n' separators.
-    :return: The pure base64 encoded body of the public key.
+    This function removes the header, footer, and any newline characters,
+    returning a continuous Base64 string.
+
+    :param public_key_bytes: The PEM-formatted public key bytes.
+    :return: A clean, continuous Base64 string representing the public key.
     """
-    # Replace the literal "\n" with actual newline characters.
-    raw_pem = formatted_pem.replace("\\n", "\n")
-    # Split into lines and filter out header/footer lines.
-    lines = raw_pem.splitlines()
-    body = "".join([line.strip() for line in lines if not (line.startswith("-----BEGIN") or line.startswith("-----END"))])
-    return body
+    public_key_str = public_key_bytes.decode("utf-8")
+    lines = public_key_str.splitlines()
+    base64_lines = [line for line in lines if not (line.startswith("-----BEGIN") or line.startswith("-----END"))]
+    return "".join(base64_lines)
 
 
-def save_keys(key_base_name: str, private_key: str, public_key: str, directory: str = "generated_keys"):
+def save_keys(key_base_name: str, private_key: str, public_key: str, public_key_clean: str, directory: str = "generated_keys"):
     """
     Save the private and public keys to separate files within a specified directory.
 
@@ -84,6 +83,7 @@ def save_keys(key_base_name: str, private_key: str, public_key: str, directory: 
     :param key_base_name: The base name to use for the key files.
     :param private_key: The formatted private key as a string.
     :param public_key: The formatted public key as a string.
+    :param public_key_clean: The Base64 public key as a string.
     :param directory: The directory where the keys will be saved (default: generated_keys).
     """
     # Create the directory if it does not exist.
@@ -91,10 +91,14 @@ def save_keys(key_base_name: str, private_key: str, public_key: str, directory: 
         os.makedirs(directory)
 
     private_key_filename = os.path.join(directory, f"{key_base_name}_private.pem")
-    public_key_filename = os.path.join(directory, f"{key_base_name}_public")
+    public_key_filename = os.path.join(directory, f"{key_base_name}_public.pem")
+    public_key_clean_filename = os.path.join(directory, f"{key_base_name}_public")
 
     with open(private_key_filename, "w") as priv_file:
         priv_file.write(private_key)
 
     with open(public_key_filename, "w") as pub_file:
         pub_file.write(public_key)
+
+    with open(public_key_clean_filename, "w") as pub_file:
+        pub_file.write(public_key_clean)

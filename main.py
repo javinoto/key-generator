@@ -6,7 +6,7 @@ formats them with literal '\\n' for newlines, and saves the keys in a designated
 """
 
 import getpass
-from key_generator import generate_keys, format_key, extract_public_key_body, save_keys
+from key_generator import generate_keys, format_key, save_keys, extract_base64_key
 
 def main():
     # Ask the user for the base name for the keys.
@@ -25,15 +25,14 @@ def main():
     # Format keys so that newlines are represented as literal '\\n'.
     private_key_str = format_key(private_key_bytes)
     public_key_str = format_key(public_key_bytes)
-
-    # Extract only the useful base64 content from the public key.
-    public_key_body = extract_public_key_body(public_key_str)
+    public_key_clean = extract_base64_key(public_key_bytes)
 
     # Save the keys to the "generated_keys" directory.
-    save_keys(key_base_name, private_key_str, public_key_body)
+    save_keys(key_base_name, private_key_str,public_key_str, public_key_clean)
 
     print("\nKeys have been saved in the 'generated_keys' directory:")
     print(f" - {key_base_name}_private.pem")
+    print(f" - {key_base_name}_public.pem")
     print(f" - {key_base_name}_public")
 
 if __name__ == "__main__":
