@@ -78,6 +78,10 @@ Keys have been saved in the 'generated_keys' directory:
  - my_key_public
 ```
 
+## Tip for AWS Secrets Manager
+
+Store the private key in the plaintext section of AWS Secrets Manager. It automatically handles newline characters (\n), ensuring the key is stored in the correct format. This works seamlessly with the public key in Base64.
+
 ---
 
 ## License
