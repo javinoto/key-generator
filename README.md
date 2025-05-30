@@ -28,6 +28,8 @@ key-generator/           # Project root
 ## Installation
 
 1. Clone the repository:
+   
+   Get `repo-url` by clicking the green `Code` button on GitHub and copying the HTTPS link
    ```bash
    git clone <repo-url>
    cd key-generator
