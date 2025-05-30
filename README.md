@@ -86,7 +86,7 @@ Keys have been saved in the 'generated_keys' directory:
 ## Tip for AWS Secrets Manager
 
 Store the private key in AWS following this steps:
-- Go to **Secrets Manager** > Store a new secret > Other type of secret
+- Go to Secrets Manager > Store a new secret > Other type of secret
 - In **Key/value pairs** section choose **Plaintext** following next format:
    ```
    {"username":"<custom user-name>","private_key":"<paste full generated .pem private key>"} 
