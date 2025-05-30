@@ -61,6 +61,7 @@ key-generator/           # Project root
    - **Base name**: Enter a name for the key files (e.g., `my_key`).
    <br> 
    No need to write `private` or `public` in the name, the sript adds it.
+   
    - **Passphrase**: Choose whether to encrypt the private key; if yes, enter a secure passphrase.
 
 3. After execution, the `generated_keys/` directory will contain:
