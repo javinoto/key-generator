@@ -29,16 +29,17 @@ key-generator/           # Project root
 
 1. Clone the repository:
    ```bash
-   git clone <repo-url> key-generator
+   git clone <repo-url>
    cd key-generator
    ```
 
-2. Create and activate a virtual environment:
+2. Create and activate a virtual environment in Linux/macOs:
    ```bash
    python3 -m venv venv
-   source venv/bin/activate   # Linux/macOS
-   venv\Scripts\activate    # Windows
+   source venv/bin/activate
    ```
+   For Windows use `venv\Scripts\activate` instead of `source venv/bin/activate`
+
 
 3. Install dependencies:
    ```bash
@@ -56,6 +57,8 @@ key-generator/           # Project root
 
 2. Follow the prompts:
    - **Base name**: Enter a name for the key files (e.g., `my_key`).
+   <br> 
+   No need to write `private` or `public` in the name, the sript adds it.
    - **Passphrase**: Choose whether to encrypt the private key; if yes, enter a secure passphrase.
 
 3. After execution, the `generated_keys/` directory will contain:
@@ -80,7 +83,16 @@ Keys have been saved in the 'generated_keys' directory:
 
 ## Tip for AWS Secrets Manager
 
-Store the private key in the plaintext section of AWS Secrets Manager. It automatically handles newline characters (\n), ensuring the key is stored in the correct format. This works seamlessly with the public key in Base64.
+Store the private key in AWS following this steps:
+- Go to **Secrets Manager** > Store a new secret > Other type of secret
+- In **Key/value pairs** section choose **Plaintext** following next format:
+   ```
+   {"username":"<custom user-name>","private_key":"<paste full generated .pem private key>"} 
+   ```
+
+
+It automatically handles newline characters (\n), ensuring the key is stored in the correct format.<br>
+This works seamlessly with the `public` key in Base64 (public key without extension .pem)
 
 ---
 
