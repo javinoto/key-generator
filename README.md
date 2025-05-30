@@ -70,7 +70,7 @@ key-generator/           # Project root
 
 ---
 
-## Examples
+## Example Script Execution
 
 ```bash
 $ python3 main.py
