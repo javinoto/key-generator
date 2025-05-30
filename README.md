@@ -92,9 +92,8 @@ Store the private key in AWS following this steps:
    {"username":"<custom user-name>","private_key":"<paste full generated .pem private key>"} 
    ```
 
-
 It automatically handles newline characters (\n), ensuring the key is stored in the correct format.<br>
-This works seamlessly with the `public` key in Base64 (public key without extension .pem)
+> This works seamlessly with the generated `public` key in Base64 (public key without extension .pem)
 
 ---
 
